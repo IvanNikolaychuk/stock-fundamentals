@@ -1,4 +1,4 @@
-package com.api.once.dto;
+package com.api.dto;
 
 import java.util.Date;
 

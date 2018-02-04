@@ -1,16 +1,14 @@
-package com.api.once.queries;
+package com.api.queries;
 
-import com.api.filter.CompanyFilter;
-import com.api.filter.Filters;
-import com.api.once.converter.JsonToCompanyDto;
-import com.api.once.dto.CompanyDto;
+import com.api.converter.JsonToCompanyDto;
+import com.api.dto.CompanyDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+import static com.api.filter.CompanyFilter.ONLY_LISTED;
 import static com.api.filter.CompanyFilter.filter;
-import static com.api.filter.Filters.ONLY_LISTED;
 
 public class ListedCompanies {
     private static final JsonToCompanyDto jsonToCompanyDto = new JsonToCompanyDto();

@@ -1,6 +1,6 @@
-package com.api.once.converter;
+package com.api.converter;
 
-import com.api.once.dto.CompanyDto;
+import com.api.dto.CompanyDto;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
