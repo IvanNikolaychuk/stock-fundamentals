@@ -5,7 +5,7 @@ import com.api.dto.CompanyDto;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.Constants.DELISTED_EXCHANGE;
+import static com.api.Constants.DELISTED_EXCHANGE;
 import static java.util.stream.Collectors.toList;
 
 public class CompanyFilter {

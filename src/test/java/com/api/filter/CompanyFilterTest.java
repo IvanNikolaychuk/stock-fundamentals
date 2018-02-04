@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static com.Constants.DELISTED_EXCHANGE;
+import static com.api.Constants.DELISTED_EXCHANGE;
 import static com.api.filter.CompanyFilter.filter;
 import static com.api.filter.CompanyFilter.ONLY_LISTED;
 import static java.util.Arrays.asList;
