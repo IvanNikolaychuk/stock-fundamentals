@@ -1,6 +1,6 @@
 package com.api.filter;
 
-import com.api.dto.CompanyDto;
+import com.entity.Company;
 import org.junit.Test;
 
 import java.util.List;
@@ -15,13 +15,13 @@ public class CompanyFilterTest {
 
     @Test
     public void delistedCompaniesAreFiltered() {
-        CompanyDto delisted = new CompanyDto();
-        delisted.exchange = DELISTED_EXCHANGE;
+        Company delisted = new Company();
+        delisted.setExchange(DELISTED_EXCHANGE);
 
-        CompanyDto listed = new CompanyDto();
-        listed.exchange = "NYSE";
+        Company listed = new Company();
+        delisted.setExchange("NYSE");
 
-        List<CompanyDto> listedCompanies = filter(asList(listed, delisted), ONLY_LISTED);
+        List<Company> listedCompanies = filter(asList(listed, delisted), ONLY_LISTED);
 
         assertEquals(listedCompanies.size(), 1);
         assertEquals(listedCompanies.get(0), listed);

@@ -1,7 +1,7 @@
 package com.api.queries;
 
-import com.api.converter.JsonToCompanyDto;
-import com.api.dto.CompanyDto;
+import com.api.converter.JsonToCompany;
+import com.entity.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,13 +15,13 @@ import static com.api.filter.CompanyFilter.filter;
 @Service
 public class ListedCompanies {
     @Autowired
-    private JsonToCompanyDto jsonToCompanyDto;
+    private JsonToCompany jsonToCompanyDto;
 
     private static final String URL = "http://www.sharadar.com/meta/tickers.json";
 
-    public List<CompanyDto> query() {
+    public List<Company> query() {
         ResponseEntity<String> response = new RestTemplate().getForEntity(URL, String.class);
-        final List<CompanyDto> allCompanies = jsonToCompanyDto.apply(response.getBody());
+        final List<Company> allCompanies = jsonToCompanyDto.apply(response.getBody());
         return filter(allCompanies, ONLY_LISTED);
     }
 
