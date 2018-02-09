@@ -13,7 +13,7 @@ import static com.api.filter.CompanyFilter.ONLY_LISTED;
 import static com.api.filter.CompanyFilter.filter;
 
 @Service
-public class ListedCompanies {
+public class ListedCompaniesQuery {
     @Autowired
     private JsonToCompany jsonToCompanyDto;
 
@@ -24,5 +24,4 @@ public class ListedCompanies {
         final List<Company> allCompanies = jsonToCompanyDto.apply(response.getBody());
         return filter(allCompanies, ONLY_LISTED);
     }
-
 }

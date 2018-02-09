@@ -1,5 +1,6 @@
 package com.entity;
 
+import com.api.Constants;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,16 +18,16 @@ public class CompanyProperty {
     private String ticker;
 
     @Column(name = "property_type")
-    private Type propertyType;
+    @Enumerated(value = EnumType.STRING)
+    private PropertyType propertyType;
 
-    @ElementCollection
-    private Map<Integer, BigDecimal> yearToValue = new HashMap<>();
+    private int year;
+    private BigDecimal property;
 
-    public void add(Integer year, BigDecimal value) {
-        yearToValue.put(year, value);
-    }
-
-    public enum Type {
-        NUMBER_OF_SHARES
+    public CompanyProperty(String ticker, int year, PropertyType propertyType, String value) {
+        this.ticker = ticker;
+        this.year = year;
+        this.propertyType = propertyType;
+        this.property = value == null ? null : new BigDecimal(value);
     }
 }
