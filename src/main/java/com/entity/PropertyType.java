@@ -5,7 +5,7 @@ public enum PropertyType {
 
     // income statement
     NUMBER_OF_SHARES("shareswa"), DIVIDENDS_PER_SHARE("dps"), EPS("EPSDIL"),
-    REVENUE("revenue"), NET_INCOME("netinc"),
+    REVENUE("revenue"), NET_INCOME("netinc"), LAST_PE("lastpe"), AVG_5_YEAR_PE("avgpe"),
 
     // balance sheet
     TOTAL_DEBT_TO_EQUITY("DE"), TANGIBLE_BOOK_VALUE_PER_SHARE("tbvps"), WORKING_CAPITAL("workingcapital"),

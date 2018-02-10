@@ -19,7 +19,7 @@ public class CompanyFilterTest {
         delisted.setExchange(DELISTED_EXCHANGE);
 
         Company listed = new Company();
-        delisted.setExchange("NYSE");
+        listed.setExchange("NYSE");
 
         List<Company> listedCompanies = filter(asList(listed, delisted), ONLY_LISTED);
 

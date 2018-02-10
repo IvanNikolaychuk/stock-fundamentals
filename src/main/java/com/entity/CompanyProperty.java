@@ -30,4 +30,8 @@ public class CompanyProperty {
         this.propertyType = propertyType;
         this.property = value == null ? null : new BigDecimal(value);
     }
+
+    public int getPropertyAsInt() {
+        return property.intValue();
+    }
 }
