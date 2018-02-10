@@ -10,5 +10,5 @@ import java.util.List;
 
 @Service
 public interface CompanyPropertyRepository extends CrudRepository<CompanyProperty, String> {
-    public List<CompanyProperty> find(String ticker, PropertyType propertyType);
+    public List<CompanyProperty> findByTickerAndPropertyType(String ticker, PropertyType propertyType);
 }

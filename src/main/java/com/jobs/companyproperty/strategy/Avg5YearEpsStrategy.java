@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.entity.PropertyType.AVG_5_YEAR_PE;
+import static com.entity.PropertyType.LAST_PE;
 import static com.jobs.utils.DataUtils.currentYear;
+import static java.math.BigDecimal.ROUND_HALF_UP;
 
 @Component
 public class Avg5YearEpsStrategy implements PeComputingStrategy {
@@ -20,11 +22,14 @@ public class Avg5YearEpsStrategy implements PeComputingStrategy {
         if (sortedNotNullEps.size() < 5) return Optional.empty();
 
         Double avgEps = sortedNotNullEps.subList(0, 5).stream()
-                .mapToInt(CompanyProperty::getPropertyAsInt)
+                .mapToDouble(CompanyProperty::getPropertyAsDouble)
                 .average()
                 .getAsDouble();
 
-        final BigDecimal avgPe = stockData.getClose().divide(new BigDecimal(avgEps));
+        if (avgEps == 0d)
+            return Optional.of(new CompanyProperty(stockData.getTicker(), currentYear(), AVG_5_YEAR_PE, "0"));
+
+        final BigDecimal avgPe = stockData.getClose().divide(new BigDecimal(avgEps), ROUND_HALF_UP);
         return Optional.of(new CompanyProperty(stockData.getTicker(), currentYear(), AVG_5_YEAR_PE, avgPe.toString()));
     }
 }

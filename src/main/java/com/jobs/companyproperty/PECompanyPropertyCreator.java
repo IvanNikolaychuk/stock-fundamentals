@@ -27,7 +27,7 @@ public class PECompanyPropertyCreator {
     }
 
     public Optional<CompanyProperty> create(StockData stockData, PeComputingStrategy priceComputingStrategy) {
-        List<CompanyProperty> sortedEps = companyPropertyRepository.find(stockData.getTicker(), EPS)
+        List<CompanyProperty> sortedEps = companyPropertyRepository.findByTickerAndPropertyType(stockData.getTicker(), EPS)
                 .stream()
                 .filter(companyProperty -> companyProperty.getProperty() != null)
                 .sorted((first, second) -> second.getYear() - first.getYear())

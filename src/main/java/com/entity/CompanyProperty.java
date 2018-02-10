@@ -24,6 +24,8 @@ public class CompanyProperty {
     private int year;
     private BigDecimal property;
 
+    public CompanyProperty() {}
+
     public CompanyProperty(String ticker, int year, PropertyType propertyType, String value) {
         this.ticker = ticker;
         this.year = year;
@@ -31,7 +33,7 @@ public class CompanyProperty {
         this.property = value == null ? null : new BigDecimal(value);
     }
 
-    public int getPropertyAsInt() {
-        return property.intValue();
+    public double getPropertyAsDouble() {
+        return property.doubleValue();
     }
 }

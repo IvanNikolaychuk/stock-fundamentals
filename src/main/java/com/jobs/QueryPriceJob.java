@@ -43,10 +43,10 @@ public class QueryPriceJob {
     public void create() {
         if (!properties.isQueryStockPriceJob()) return;
 
-        List<StockData> stockDataList = new ArrayList<>();
-        companyRepository.findAll()
-                .forEach(company -> yahooApi.queryMostResent(company.getTicker()).ifPresent(stockDataList::add));
-        stockDataRepository.save(stockDataList);
+        Iterable<StockData> stockDataList = stockDataRepository.findAll();
+//        companyRepository.findAll()
+//                .forEach(company -> yahooApi.queryMostResent(company.getTicker()).ifPresent(stockDataList::add));
+//        stockDataRepository.save(stockDataList);
 
         List<CompanyProperty> peProperties = new ArrayList<>();
         stockDataList.forEach(stockData -> {
@@ -54,7 +54,6 @@ public class QueryPriceJob {
             peCompanyPropertyCreator.create(stockData, new Avg5YearEpsStrategy()).ifPresent(peProperties::add);
         });
 
-        companyPropertyRepository.deleteAll();
         companyPropertyRepository.save(peProperties);
     }
 }
