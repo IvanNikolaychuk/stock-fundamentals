@@ -29,7 +29,7 @@ public class CollectCommonPropertiesJob {
             "ticker={0}&qopts.columns=ticker,datekey,revenue,netinc,shareswa,workingcapital,dps,fcf,de,TBVPS,EPSDIL" +
             "&dimension=ARY&api_key={1}";
 
-    @PostConstruct
+//    @PostConstruct
     public void create() {
         List<String> tickerList = splitByTickers(companyRepository.findAll());
         for (String tickers : tickerList) {
