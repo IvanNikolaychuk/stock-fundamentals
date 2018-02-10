@@ -1,5 +1,6 @@
 package com.jobs;
 
+import com.api.config.ApplicationProperties;
 import com.api.stockprice.YahooApi;
 import com.entity.StockData;
 import com.repository.CompanyRepository;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class StockPriceJob {
+public class QueryPriceJob {
     @Autowired
     private CompanyRepository companyRepository;
 
@@ -22,10 +23,14 @@ public class StockPriceJob {
     @Autowired
     private YahooApi yahooApi;
 
+    @Autowired
+    private ApplicationProperties properties;
+
     @PostConstruct
     public void create() {
-        List<StockData> stockData = new ArrayList<>();
+        if (!properties.isQueryStockPriceJob()) return;
 
+        List<StockData> stockData = new ArrayList<>();
         companyRepository.findAll()
                 .forEach(company -> yahooApi.queryMostResent(company.getTicker()).ifPresent(stockData::add));
         stockDataRepository.save(stockData);

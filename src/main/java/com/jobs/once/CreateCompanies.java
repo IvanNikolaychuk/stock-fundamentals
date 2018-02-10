@@ -1,5 +1,6 @@
 package com.jobs.once;
 
+import com.api.config.ApplicationProperties;
 import com.api.queries.ListedCompaniesQuery;
 import com.entity.Company;
 import com.repository.CompanyRepository;
@@ -20,8 +21,12 @@ public class CreateCompanies {
     @Autowired
     private ListedCompaniesQuery listedCompanies;
 
-//    @PostConstruct
+    @Autowired
+    private ApplicationProperties applicationProperties;
+
+    @PostConstruct
     public void create() {
+        if (!applicationProperties.isCreateCompaniesJob()) return;
         companyRepository.save(listedCompanies.query());
     }
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CollectCommonPropertiesJob {
+public class QueryCommonPropertiesJob {
     @Autowired
     private CompanyRepository companyRepository;
     @Autowired
@@ -29,8 +29,9 @@ public class CollectCommonPropertiesJob {
             "ticker={0}&qopts.columns=ticker,datekey,revenue,netinc,shareswa,workingcapital,dps,fcf,de,TBVPS,EPSDIL" +
             "&dimension=ARY&api_key={1}";
 
-//    @PostConstruct
-    public void create() {
+    @PostConstruct
+    public void query() {
+        if (!properties.isQueryCommonPropertiesJob()) return;
         List<String> tickerList = splitByTickers(companyRepository.findAll());
         for (String tickers : tickerList) {
             final String url = MessageFormat.format(TEMPLATE_URL, tickers, properties.getApiKey());
