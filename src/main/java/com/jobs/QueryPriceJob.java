@@ -3,6 +3,7 @@ package com.jobs;
 import com.api.config.ApplicationProperties;
 import com.api.stockprice.YahooApi;
 import com.entity.CompanyProperty;
+import com.entity.PropertyType;
 import com.entity.StockData;
 import com.jobs.companyproperty.PECompanyPropertyCreator;
 import com.jobs.companyproperty.strategy.Avg5YearEpsStrategy;
@@ -16,8 +17,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
+
+import static com.entity.PropertyType.AVG_5_YEAR_PE;
+import static com.entity.PropertyType.LAST_PE;
 
 @Component
 public class QueryPriceJob {
@@ -43,17 +45,21 @@ public class QueryPriceJob {
     public void create() {
         if (!properties.isQueryStockPriceJob()) return;
 
-        Iterable<StockData> stockDataList = stockDataRepository.findAll();
-//        companyRepository.findAll()
-//                .forEach(company -> yahooApi.queryMostResent(company.getTicker()).ifPresent(stockDataList::add));
-//        stockDataRepository.save(stockDataList);
+        List<StockData> stockDataList = new ArrayList<>();
+        companyRepository.findAll()
+                .forEach(company -> yahooApi.queryMostResent(company.getTicker()).ifPresent(stockDataList::add));
+        stockDataRepository.save(stockDataList);
 
-        List<CompanyProperty> peProperties = new ArrayList<>();
+        companyPropertyRepository.delete(companyPropertyRepository.findByPropertyType(AVG_5_YEAR_PE));
+        companyPropertyRepository.delete(companyPropertyRepository.findByPropertyType(LAST_PE));
+
         stockDataList.forEach(stockData -> {
-            peCompanyPropertyCreator.create(stockData, new LastEpsStrategy()).ifPresent(peProperties::add);
-            peCompanyPropertyCreator.create(stockData, new Avg5YearEpsStrategy()).ifPresent(peProperties::add);
+            try {
+                peCompanyPropertyCreator.create(stockData, new Avg5YearEpsStrategy()).ifPresent(companyPropertyRepository::save);
+                peCompanyPropertyCreator.create(stockData, new LastEpsStrategy()).ifPresent(companyPropertyRepository::save);
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
         });
-
-        companyPropertyRepository.save(peProperties);
     }
 }
