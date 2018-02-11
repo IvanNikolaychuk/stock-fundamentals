@@ -4,7 +4,9 @@ import com.api.config.ApplicationProperties;
 import com.entity.AnalyzeSummary;
 import com.entity.Company;
 import com.jobs.analyzer.DividendAnalyzer;
+import com.jobs.analyzer.EpsAnalyzer;
 import com.jobs.analyzer.FreeCashFlowAnalyzer;
+import com.jobs.analyzer.NumberOfSharesAnalyzer;
 import com.repository.AnalyzeSummaryRepository;
 import com.repository.CompanyRepository;
 import org.apache.commons.collections4.IterableUtils;
@@ -37,6 +39,12 @@ public class AnalyzeSummaryJob {
     @Autowired
     private FreeCashFlowAnalyzer freeCashFlowAnalyzer;
 
+    @Autowired
+    private EpsAnalyzer epsAnalyzer;
+
+    @Autowired
+    private NumberOfSharesAnalyzer numberOfSharesAnalyzer;
+
     @PostConstruct
     public void create() {
         if (!properties.isAnalyzeSummaryJob()) return;
@@ -66,6 +74,8 @@ public class AnalyzeSummaryJob {
             companies.forEach(company -> {
                 analyzeSummaries.add(dividendAnalyzer.analyze(company.getTicker()));
                 analyzeSummaries.add(freeCashFlowAnalyzer.analyze(company.getTicker()));
+                analyzeSummaries.add(numberOfSharesAnalyzer.analyze(company.getTicker()));
+                analyzeSummaries.add(epsAnalyzer.analyze(company.getTicker()));
             });
             analyzeSummaryRepository.save(analyzeSummaries);
             System.out.println(counter.addAndGet(-1) + " left");
