@@ -3,6 +3,8 @@ package com.jobs.analyzer;
 import com.entity.AnalyzeSummary;
 import com.entity.CompanyProperty;
 import com.entity.PropertyType;
+import com.entity.Trend;
+import com.jobs.analyzer.trend.TrendAnalyzer;
 import com.jobs.utils.DataUtils;
 import com.repository.CompanyPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,9 @@ public abstract class Analyzer {
         this.companyPropertyRepository = companyPropertyRepository;
     }
 
-    public abstract AnalyzeSummary analyze(List<CompanyProperty> companyProperties);
+    public Trend analyze(List<CompanyProperty> companyProperties) {
+        return TrendAnalyzer.analyze(companyProperties);
+    }
 
     public AnalyzeSummary analyze(String ticker) {
         final int minYear = DataUtils.currentYear() - maxYearsOfAnalysis();
@@ -33,7 +37,7 @@ public abstract class Analyzer {
                 .sorted((first, second) -> first.getYear() - second.getYear())
                 .collect(toList());
 
-        return analyze(orderedByYear);
+        return new AnalyzeSummary(ticker, getPropertyType(), analyze(orderedByYear));
     }
 
     public abstract PropertyType getPropertyType();

@@ -3,6 +3,7 @@ package com.jobs.companyproperty;
 import com.entity.AnalyzeSummary;
 import com.entity.CompanyProperty;
 import com.entity.PropertyType;
+import com.entity.Trend;
 import com.jobs.analyzer.Analyzer;
 import com.repository.CompanyPropertyRepository;
 import junit.framework.Assert;
@@ -53,7 +54,7 @@ public class AnalyzerTest {
         }
 
         @Override
-        public AnalyzeSummary analyze(List<CompanyProperty> companyProperties) {
+        public Trend analyze(List<CompanyProperty> companyProperties) {
             this.companyProperties = companyProperties;
             return null;
         }
