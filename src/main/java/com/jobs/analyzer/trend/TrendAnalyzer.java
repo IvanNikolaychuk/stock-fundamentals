@@ -1,10 +1,11 @@
 package com.jobs.analyzer.trend;
 
 import com.entity.CompanyProperty;
+import com.entity.Trend;
 
 import java.util.List;
 
-import static com.jobs.analyzer.trend.TrendAnalyzer.Trend.*;
+import static com.entity.Trend.*;
 import static com.jobs.utils.NumbersUtils.*;
 import static com.jobs.utils.PercentageUtils.betweenAbs;
 import static java.util.stream.Collectors.toList;
@@ -63,12 +64,5 @@ public class TrendAnalyzer {
 
     private static List<Double> toDoubles(List<CompanyProperty> properties) {
         return properties.stream().map(CompanyProperty::getProperty).collect(toList());
-    }
-
-    public enum Trend {
-        FLAT,
-        STABLE_GROWTH, UNSTABLE_GROWTH,
-        STABLE_DECLINE, UNSTABLE_DECLINE,
-        UNKNOWN
     }
 }

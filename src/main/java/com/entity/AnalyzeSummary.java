@@ -1,19 +1,19 @@
 package com.entity;
 
+import com.jobs.analyzer.trend.TrendAnalyzer;
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 public class AnalyzeSummary {
     @Id
     @GeneratedValue
     private int id;
-
-    private Result result;
     private String ticker;
     @Enumerated(EnumType.STRING)
     private PropertyType property;
-
-    public enum Result {
-        VERY_POSITIVE
-    }
+    @Enumerated(EnumType.STRING)
+    private Trend trend;
 }

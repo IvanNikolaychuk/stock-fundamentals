@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static com.entity.PropertyType.EPS;
-import static com.jobs.analyzer.trend.TrendAnalyzer.Trend.*;
+import static com.entity.Trend.*;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 
