@@ -17,9 +17,4 @@ public class FreeCashFlowAnalyzer extends Analyzer {
     public PropertyType getPropertyType() {
         return FREE_CASH_FLOW;
     }
-
-    @Override
-    public int maxYearsOfAnalysis() {
-        return 10;
-    }
 }

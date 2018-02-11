@@ -16,9 +16,4 @@ public class NumberOfSharesAnalyzer extends Analyzer {
     public PropertyType getPropertyType() {
         return NUMBER_OF_SHARES;
     }
-
-    @Override
-    public int maxYearsOfAnalysis() {
-        return 10;
-    }
 }

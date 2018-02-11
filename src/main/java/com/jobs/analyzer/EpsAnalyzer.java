@@ -16,9 +16,4 @@ public class EpsAnalyzer extends Analyzer{
     public PropertyType getPropertyType() {
         return EPS;
     }
-
-    @Override
-    public int maxYearsOfAnalysis() {
-        return 10;
-    }
 }
