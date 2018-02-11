@@ -20,4 +20,7 @@ public class ApplicationProperties {
 
     @Value("${query_common_properties_job}")
     private boolean queryCommonPropertiesJob;
+
+    @Value("${analyze_summary_job}")
+    private boolean analyzeSummaryJob;
 }
