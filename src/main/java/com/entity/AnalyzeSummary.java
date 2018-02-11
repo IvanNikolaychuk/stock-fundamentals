@@ -11,7 +11,7 @@ public class AnalyzeSummary {
     private Result result;
     private String ticker;
     @Enumerated(EnumType.STRING)
-    private CompanyProperty property;
+    private PropertyType property;
 
     public enum Result {
         VERY_POSITIVE
