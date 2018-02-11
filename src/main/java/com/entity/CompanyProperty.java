@@ -22,18 +22,14 @@ public class CompanyProperty {
     private PropertyType propertyType;
 
     private int year;
-    private BigDecimal property;
+    private Double property;
 
     public CompanyProperty() {}
 
-    public CompanyProperty(String ticker, int year, PropertyType propertyType, String value) {
+    public CompanyProperty(String ticker, int year, PropertyType propertyType, Double value) {
         this.ticker = ticker;
         this.year = year;
         this.propertyType = propertyType;
-        this.property = value == null ? null : new BigDecimal(value);
-    }
-
-    public double getPropertyAsDouble() {
-        return property.doubleValue();
+        this.property = value;
     }
 }

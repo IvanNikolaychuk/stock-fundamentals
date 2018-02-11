@@ -64,15 +64,15 @@ public class PECompanyPropertyCreatorTest {
         assertEquals(companyProperty.getPropertyType(), expectedPropertyType);
     }
 
-    private StockData stockData(int price) {
+    private StockData stockData(double price) {
         StockData stockData = new StockData();
-        stockData.setClose(new BigDecimal(price));
+        stockData.setClose(price);
         stockData.setTicker(TICKER);
         return stockData;
     }
 
 
     public CompanyProperty epsProperty(int year, String value) {
-        return new CompanyProperty("", year, EPS, value);
+        return new CompanyProperty("", year, EPS, new Double(value));
     }
 }

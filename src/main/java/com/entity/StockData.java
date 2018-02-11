@@ -17,5 +17,5 @@ public class StockData {
 
     private String ticker;
     private Date date;
-    private BigDecimal close;
+    private double close;
 }

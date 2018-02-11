@@ -17,7 +17,7 @@ public class JsonToStockData {
 
         JsonObject financeData = extractFinanceData(root);
         List<Date> dates = extractDates(root);
-        List<BigDecimal> closes = extract(financeData, "close");
+        List<Double> closes = extract(financeData, "close");
 
         List<StockData> stockDataList = new ArrayList<>();
 
@@ -47,8 +47,8 @@ public class JsonToStockData {
     }
 
 
-    private static List<BigDecimal> extract(JsonObject financeData, String elemName) {
-        List<BigDecimal> elements = new ArrayList<>();
+    private static List<Double> extract(JsonObject financeData, String elemName) {
+        List<Double> elements = new ArrayList<>();
 
         JsonArray jsonArray = financeData.get(elemName).getAsJsonArray();
 
@@ -57,7 +57,7 @@ public class JsonToStockData {
             if (jsonElement.getClass() == JsonNull.class) {
                 elements.add(null);
             } else {
-                elements.add(jsonElement.getAsBigDecimal());
+                elements.add(jsonElement.getAsDouble());
             }
         }
 

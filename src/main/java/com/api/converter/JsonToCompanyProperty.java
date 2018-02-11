@@ -46,7 +46,7 @@ public class JsonToCompanyProperty implements Function<String, List<CompanyPrope
         String ticker = properties.get(columns.indexOf(TICKER)).getAsString();
 
         for (int j = 0; j < properties.size(); j++) {
-            final String value = properties.get(j).isJsonNull() ? null : properties.get(j).getAsString();
+            final Double value = properties.get(j).isJsonNull() ? null : properties.get(j).getAsDouble();
             final PropertyType propertyType = PropertyType.find(columns.get(j));
             if (propertyType == PropertyType.TICKER || propertyType == PropertyType.DATA) continue;
 
