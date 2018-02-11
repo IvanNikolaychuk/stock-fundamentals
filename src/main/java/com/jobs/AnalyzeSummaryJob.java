@@ -3,10 +3,7 @@ package com.jobs;
 import com.api.config.ApplicationProperties;
 import com.entity.AnalyzeSummary;
 import com.entity.Company;
-import com.jobs.analyzer.DividendAnalyzer;
-import com.jobs.analyzer.EpsAnalyzer;
-import com.jobs.analyzer.FreeCashFlowAnalyzer;
-import com.jobs.analyzer.NumberOfSharesAnalyzer;
+import com.jobs.analyzer.*;
 import com.repository.AnalyzeSummaryRepository;
 import com.repository.CompanyRepository;
 import org.apache.commons.collections4.IterableUtils;
@@ -45,6 +42,18 @@ public class AnalyzeSummaryJob {
     @Autowired
     private NumberOfSharesAnalyzer numberOfSharesAnalyzer;
 
+    @Autowired
+    private NetIncomeAnalyzer netIncomeAnalyzer;
+
+    @Autowired
+    private RevenueAnalyzer revenueAnalyzer;
+
+    @Autowired
+    private TangibleBookValueAnalyzer tangibleBookValueAnalyzer;
+
+    @Autowired
+    private TotalDebtToEquityAnalyzer totalDebtToEquityAnalyzer;
+
     @PostConstruct
     public void create() {
         if (!properties.isAnalyzeSummaryJob()) return;
@@ -76,6 +85,10 @@ public class AnalyzeSummaryJob {
                 analyzeSummaries.add(freeCashFlowAnalyzer.analyze(company.getTicker()));
                 analyzeSummaries.add(numberOfSharesAnalyzer.analyze(company.getTicker()));
                 analyzeSummaries.add(epsAnalyzer.analyze(company.getTicker()));
+                analyzeSummaries.add(netIncomeAnalyzer.analyze(company.getTicker()));
+                analyzeSummaries.add(revenueAnalyzer.analyze(company.getTicker()));
+                analyzeSummaries.add(tangibleBookValueAnalyzer.analyze(company.getTicker()));
+                analyzeSummaries.add(totalDebtToEquityAnalyzer.analyze(company.getTicker()));
             });
             analyzeSummaryRepository.save(analyzeSummaries);
             System.out.println(counter.addAndGet(-1) + " left");
