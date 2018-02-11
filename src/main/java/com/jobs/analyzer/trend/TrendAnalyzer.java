@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.toList;
 
 public class TrendAnalyzer {
     private static final int MIN_NUMBER_OF_RECORDS_REQUIRED = 2;
-    private static final int MAX_PERCENTAGE_CHANGE_FOR_FLAT = 10;
+    private static final int MAX_PERCENTAGE_CHANGE_FOR_FLAT = 5;
     private static final int MIN_PERCENTAGE_AVG_CHANGE_FOR_UNSTABLE_GROWTH = 5;
     private static final int MAX_PERCENTAGE_AVG_CHANGE_FOR_UNSTABLE_DECLINE = -5;
 
