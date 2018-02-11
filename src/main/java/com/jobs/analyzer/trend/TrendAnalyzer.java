@@ -18,6 +18,7 @@ public class TrendAnalyzer {
 
     public static Trend analyze(List<CompanyProperty> companyProperties) {
         if (!enoughRecords(companyProperties)) return UNKNOWN;
+        if (isZeroFlat(companyProperties)) return ZERO_FLAT;
         if (isFlat(companyProperties)) return FLAT;
         if (isStableGrowth(companyProperties)) return STABLE_GROWTH;
         if (isUnstableGrowth(companyProperties)) return UNSTABLE_GROWTH;
@@ -25,6 +26,10 @@ public class TrendAnalyzer {
         if (isUnstableDecline(companyProperties)) return UNSTABLE_DECLINE;
 
         return UNKNOWN;
+    }
+
+    private static boolean isZeroFlat(List<CompanyProperty> companyProperties) {
+        return allNumbersAreZero(toDoubles(companyProperties));
     }
 
     private static boolean isStableDecline(List<CompanyProperty> properties) {
@@ -50,8 +55,8 @@ public class TrendAnalyzer {
                 .collect(toList());
 
         final double first = orderedAndNotNull.get(0).getProperty();
-        final double second = orderedAndNotNull.get(orderedAndNotNull.size() - 1).getProperty();
-        return betweenAbs(first, second) <= MAX_PERCENTAGE_CHANGE_FOR_FLAT;
+        final double last = orderedAndNotNull.get(orderedAndNotNull.size() - 1).getProperty();
+        return betweenAbs(first, last) <= MAX_PERCENTAGE_CHANGE_FOR_FLAT;
     }
 
     private static boolean enoughRecords(List<CompanyProperty> properties) {

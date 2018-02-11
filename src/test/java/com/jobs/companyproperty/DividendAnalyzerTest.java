@@ -23,6 +23,14 @@ public class DividendAnalyzerTest {
     }
 
     @Test
+    public void zeroFlatWhenDividendsAreAlwaysZero() {
+        assertEquals(
+                dividendAnalyzer.analyze(asList(aCompanyProperty(2015, 0d), aCompanyProperty(2016, 0d), aCompanyProperty(2017, 0d))),
+                ZERO_FLAT
+        );
+    }
+
+    @Test
     public void negativeWhenDividendsAreDecliningSlowly() {
         assertEquals(
                 dividendAnalyzer.analyze(asList(aCompanyProperty(2015, 1d), aCompanyProperty(2016, .9d), aCompanyProperty(2017, .9d))),

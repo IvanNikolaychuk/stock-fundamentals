@@ -80,6 +80,12 @@ public class TrendAnalyzerTest {
         assertEquals(TrendAnalyzer.analyze(properties), FLAT);
     }
 
+    @Test
+    public void zeroFlatTrend() {
+        List<CompanyProperty> properties = asList(property(2015, 0d), property(2016, 0d), property(2017, 0d));
+        assertEquals(TrendAnalyzer.analyze(properties), ZERO_FLAT);
+    }
+
     private static CompanyProperty property(int year, Double value) {
         return new CompanyProperty("SIG", year, EPS, value);
     }

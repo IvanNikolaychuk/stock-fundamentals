@@ -20,6 +20,10 @@ public class NumbersUtils {
         return numbers.stream().filter(d -> d <= 0).collect(toList()).size() == numbers.size();
     }
 
+    public static boolean allNumbersAreZero(List<Double> numbers) {
+        return numbers.stream().filter(d -> d == null || d == 0).collect(toList()).size() == numbers.size();
+    }
+
     public static List<Double> percChangeList(List<Double> numbers) {
         List<Double> percentageChangeList = new ArrayList<>();
 
