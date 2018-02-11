@@ -10,12 +10,17 @@ public class PercentageUtilsTest {
 
     @Test
     public void betweenPositive() {
-        assertEquals(between(100, 105), 5, 0.01d);
+        assertEquals(between(100d, 105d), 5, 0.01d);
     }
 
     @Test
     public void betweenNegative() {
-        assertEquals(between(10, 5), -50, 0.01d);
+        assertEquals(between(10d, 5d), -50, 0.01d);
+    }
+
+    @Test
+    public void betweenValueIsMissing() {
+        assertEquals(between(10d, null), 0, 0.01d);
     }
 
     @Test
