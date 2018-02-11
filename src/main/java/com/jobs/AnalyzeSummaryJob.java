@@ -3,12 +3,13 @@ package com.jobs;
 import com.api.config.ApplicationProperties;
 import com.entity.AnalyzeSummary;
 import com.entity.Company;
-import com.jobs.analyzer.*;
+import com.jobs.analyzer.balancesheet.TangibleBookValueAnalyzer;
+import com.jobs.analyzer.balancesheet.TotalDebtToEquityAnalyzer;
+import com.jobs.analyzer.cashflow.FreeCashFlowAnalyzer;
+import com.jobs.analyzer.incomestatement.*;
 import com.repository.AnalyzeSummaryRepository;
 import com.repository.CompanyRepository;
-import org.apache.commons.collections4.IterableUtils;
 import org.apache.commons.collections4.ListUtils;
-import org.apache.commons.collections4.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,7 @@
-package com.jobs.analyzer;
+package com.jobs.analyzer.cashflow;
 
 import com.entity.PropertyType;
+import com.jobs.analyzer.Analyzer;
 import com.repository.CompanyPropertyRepository;
 import org.springframework.stereotype.Service;
 

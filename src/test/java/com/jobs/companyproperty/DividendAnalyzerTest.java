@@ -1,9 +1,7 @@
 package com.jobs.companyproperty;
 
-import com.entity.AnalyzeSummary;
 import com.entity.CompanyProperty;
-import com.entity.Trend;
-import com.jobs.analyzer.DividendAnalyzer;
+import com.jobs.analyzer.incomestatement.DividendAnalyzer;
 import org.junit.Test;
 
 import static com.entity.PropertyType.DIVIDENDS_PER_SHARE;
