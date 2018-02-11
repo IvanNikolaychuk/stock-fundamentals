@@ -1,6 +1,5 @@
 package com.entity;
 
-import com.jobs.analyzer.trend.TrendAnalyzer;
 import lombok.Data;
 
 import javax.persistence.*;
