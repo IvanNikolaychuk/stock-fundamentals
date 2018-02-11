@@ -12,10 +12,8 @@ import static java.util.stream.Collectors.toList;
 public class TrendAnalyzer {
     private static final int MIN_NUMBER_OF_RECORDS_REQUIRED = 2;
     private static final int MAX_PERCENTAGE_CHANGE_FOR_FLAT = 10;
-    private static final int MIN_PERCENTAGE_AVG_CHANGE_FOR_STABLE_GROWTH = 10;
     private static final int MIN_PERCENTAGE_AVG_CHANGE_FOR_UNSTABLE_GROWTH = 5;
     private static final int MAX_PERCENTAGE_AVG_CHANGE_FOR_UNSTABLE_DECLINE = -5;
-    private static final int MAX_PERCENTAGE_AVG_CHANGE_FOR_STABLE_DECLINE = -10;
 
     public static Trend analyze(List<CompanyProperty> companyProperties) {
         if (!enoughRecords(companyProperties)) return UNKNOWN;
@@ -29,9 +27,7 @@ public class TrendAnalyzer {
     }
 
     private static boolean isStableDecline(List<CompanyProperty> properties) {
-        List<Double> percentageChangeList = percChangeList(toDoubles(properties));
-        return allNumbersAreZeroOrLess(percentageChangeList) &&
-                avgChange(percentageChangeList) < MAX_PERCENTAGE_AVG_CHANGE_FOR_STABLE_DECLINE;
+        return allNumbersAreZeroOrLess(percChangeList(toDoubles(properties)));
     }
 
     private static boolean isUnstableDecline(List<CompanyProperty> properties) {
@@ -39,9 +35,7 @@ public class TrendAnalyzer {
     }
 
     private static boolean isStableGrowth(List<CompanyProperty> properties) {
-        List<Double> percentageChangeList = percChangeList(toDoubles(properties));
-        return allNumbersAreZeroOrMore(percentageChangeList) &&
-                avgChange(percentageChangeList) > MIN_PERCENTAGE_AVG_CHANGE_FOR_STABLE_GROWTH;
+        return allNumbersAreZeroOrMore(percChangeList(toDoubles(properties)));
     }
 
     private static boolean isUnstableGrowth(List<CompanyProperty> properties) {

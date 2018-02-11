@@ -45,7 +45,7 @@ public class TrendAnalyzerTest {
 
     @Test
     public void unstableGrowthWithMissingRecords() {
-        List<CompanyProperty> properties = asList(property(2015, null), property(2016, 3d), property(2017, 3.5d));
+        List<CompanyProperty> properties = asList(property(2015, null), property(2016, 3d), property(2016, 2.9d), property(2017, 3.7d));
         assertEquals(TrendAnalyzer.analyze(properties), UNSTABLE_GROWTH);
     }
 
@@ -58,7 +58,7 @@ public class TrendAnalyzerTest {
 
     @Test
     public void unstableDeclineWithMissingRecords() {
-        List<CompanyProperty> properties = asList(property(2015, null), property(2016, 3d), property(2017, 2.5d));
+        List<CompanyProperty> properties = asList(property(2015, null), property(2016, 3d),  property(2016, 3.1d), property(2017, 2.0d));
         assertEquals(TrendAnalyzer.analyze(properties), UNSTABLE_DECLINE);
     }
 
