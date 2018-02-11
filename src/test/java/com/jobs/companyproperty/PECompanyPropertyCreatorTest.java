@@ -36,8 +36,8 @@ public class PECompanyPropertyCreatorTest {
 
     @Test
     public void avg_6_pe_property() {
-        List<CompanyProperty> properties = Arrays.asList(epsProperty(2017, "6"), epsProperty(2016, "0"),
-                epsProperty(2015, "6"), epsProperty(2014, "0"), epsProperty(2013, "3"), epsProperty(2012, "50"));
+        List<CompanyProperty> properties = Arrays.asList(epsProperty(2017, 6d), epsProperty(2016, 0d),
+                epsProperty(2015, 6d), epsProperty(2014, 0d), epsProperty(2013, 3d), epsProperty(2012, 50d));
         doReturn(properties).when(companyPropertyRepository).findByTickerAndPropertyType(eq(TICKER), eq(EPS));
 
         Optional<CompanyProperty> avg5YearPe = peCompanyPropertyCreator.create(stockData(30), new Avg5YearEpsStrategy());
@@ -46,21 +46,22 @@ public class PECompanyPropertyCreatorTest {
 
     @Test
     public void last_pe_property() {
-        doReturn(singletonList(epsProperty(2017, "1"))).when(companyPropertyRepository).findByTickerAndPropertyType(eq(TICKER), eq(EPS));
+        doReturn(singletonList(epsProperty(2017, 1d))).when(companyPropertyRepository).findByTickerAndPropertyType(eq(TICKER), eq(EPS));
         Optional<CompanyProperty> peProperty = peCompanyPropertyCreator.create(stockData(10), new LastEpsStrategy());
         assertProperty(peProperty.get(), 10, LAST_PE);
     }
 
     @Test
     public void allPropertiesAreNull() {
-        doReturn(singletonList(epsProperty(2017, null))).when(companyPropertyRepository).findByTickerAndPropertyType(eq(TICKER), eq(EPS));
+        List<CompanyProperty> properties = singletonList(epsProperty(2017, null));
+        doReturn(properties).when(companyPropertyRepository).findByTickerAndPropertyType(eq(TICKER), eq(EPS));
         Optional<CompanyProperty> pePropertiy = peCompanyPropertyCreator.create(stockData(10), new LastEpsStrategy());
 
         assertFalse(pePropertiy.isPresent());
     }
 
-    public void assertProperty(CompanyProperty companyProperty, int expectedPe, PropertyType expectedPropertyType) {
-        assertEquals(companyProperty.getProperty(), new BigDecimal(expectedPe));
+    public void assertProperty(CompanyProperty companyProperty, double expectedPe, PropertyType expectedPropertyType) {
+        assertEquals(companyProperty.getProperty(), expectedPe);
         assertEquals(companyProperty.getPropertyType(), expectedPropertyType);
     }
 
@@ -72,7 +73,7 @@ public class PECompanyPropertyCreatorTest {
     }
 
 
-    public CompanyProperty epsProperty(int year, String value) {
-        return new CompanyProperty("", year, EPS, new Double(value));
+    public CompanyProperty epsProperty(int year, Double value) {
+        return new CompanyProperty("", year, EPS, value);
     }
 }
