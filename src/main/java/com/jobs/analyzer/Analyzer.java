@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toList;
 
 @Component
 public abstract class Analyzer {
-    private CompanyPropertyRepository companyPropertyRepository;
+    private CompanyPropertyRepository companyPropertyRepository; // TODO: remove
 
     public Analyzer(CompanyPropertyRepository companyPropertyRepository) {
         this.companyPropertyRepository = companyPropertyRepository;
@@ -28,12 +28,11 @@ public abstract class Analyzer {
         return TrendAnalyzer.analyze(companyProperties);
     }
 
-    public AnalyzeSummary analyze(String ticker) {
+    public AnalyzeSummary analyze(String ticker, List<CompanyProperty> properties) {
         final int minYear = DataUtils.currentYear() - maxYearsOfAnalysis();
 
-        List<CompanyProperty> orderedByYear = companyPropertyRepository
-                .findByTickerAndPropertyType(ticker, getPropertyType()).stream()
-                .filter(property -> property.getYear() >= minYear)
+        List<CompanyProperty> orderedByYear = properties.stream()
+                .filter(property -> property.getYear() >= minYear && property.getPropertyType() == getPropertyType())
                 .sorted((first, second) -> first.getYear() - second.getYear())
                 .collect(toList());
 
@@ -43,6 +42,6 @@ public abstract class Analyzer {
     public abstract PropertyType getPropertyType();
 
     public int maxYearsOfAnalysis() {
-        return 10;
+        return 9;
     }
 }

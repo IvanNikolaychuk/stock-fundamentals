@@ -1,12 +1,10 @@
 package com.jobs.companyproperty;
 
-import com.entity.AnalyzeSummary;
 import com.entity.CompanyProperty;
 import com.entity.PropertyType;
 import com.entity.Trend;
 import com.jobs.analyzer.Analyzer;
 import com.repository.CompanyPropertyRepository;
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,9 +13,6 @@ import java.util.List;
 import static com.entity.PropertyType.EPS;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 
 public class AnalyzerTest {
     private static final int MAX_YEARS_TO_ANALYZE = 2;
@@ -28,10 +23,7 @@ public class AnalyzerTest {
 
     @Before
     public void setUp() {
-        CompanyPropertyRepository companyPropertyRepository = mock(CompanyPropertyRepository.class);
-        doReturn(asList(aCompanyProperty(2017, 4d), aCompanyProperty(2016, null), aCompanyProperty(2015, 4d)))
-                .when(companyPropertyRepository).findByTickerAndPropertyType(eq(TICKER), eq(PROPERTY_TYPE));
-        someAnalyzer = new SomeAnalyzer(companyPropertyRepository);
+        someAnalyzer = new SomeAnalyzer(null);
     }
 
     private CompanyProperty aCompanyProperty(int year, Double value) {
@@ -40,7 +32,7 @@ public class AnalyzerTest {
 
     @Test
     public void correctValueIsPassedToAnalyzer() {
-        someAnalyzer.analyze(TICKER);
+        someAnalyzer.analyze(TICKER, asList(aCompanyProperty(2017, 4d), aCompanyProperty(2016, null), aCompanyProperty(2015, 4d)));
         assertEquals(someAnalyzer.companyProperties.size(), 2);
         assertEquals(someAnalyzer.companyProperties.get(0).getYear(), 2016);
         assertEquals(someAnalyzer.companyProperties.get(1).getYear(), 2017);
