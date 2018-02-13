@@ -26,18 +26,22 @@ public class QueryCommonPropertiesJob {
     private ApplicationProperties properties;
 
     private static String TEMPLATE_URL = "https://www.quandl.com/api/v3/datatables/SHARADAR/SF1.json?" +
-            "ticker={0}&qopts.columns=ticker,datekey,revenue,netinc,shareswa,workingcapital,dps,fcf,de,TBVPS,EPSDIL" +
+            "ticker={0}&qopts.columns=ticker,datekey,revenue,netinc,shareswa,workingcapital,dps,fcf,de,TBVPS,EPSDIL,EQUITYUSD,DEBTNC" +
             "&dimension=ARY&api_key={1}";
 
     @PostConstruct
     public void query() {
         if (!properties.isQueryCommonPropertiesJob()) return;
+        companyRepository.deleteAll();
+
         List<String> tickerList = splitByTickers(companyRepository.findAll());
         for (String tickers : tickerList) {
             final String url = MessageFormat.format(TEMPLATE_URL, tickers, properties.getApiKey());
             List<CompanyProperty> companyProperties = genericCommonPropertyQuery.query(url);
             companyPropertyRepository.save(companyProperties);
         }
+
+        System.out.println(this.getClass().getName() + " finished");
     }
 
     private List<String> splitByTickers(Iterable<Company> companies) {
