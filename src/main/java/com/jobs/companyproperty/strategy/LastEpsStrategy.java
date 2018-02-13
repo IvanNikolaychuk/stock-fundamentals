@@ -19,7 +19,6 @@ public class LastEpsStrategy implements PeComputingStrategy {
             return Optional.of(new CompanyProperty(stockData.getTicker(), currentYear(), LAST_PE, 0d));
 
         final double pe = stockData.getClose() / sortedNotNullEps.get(0).getProperty();
-        System.out.println(stockData.getTicker());
         return Optional.of(new CompanyProperty(stockData.getTicker(), currentYear(), LAST_PE, pe));
     }
 }

@@ -20,7 +20,6 @@ public class YahooApi {
     public Optional<StockData> queryMostResent(String ticker) {
         try {
             String url = MessageFormat.format(BASE_URL, ticker);
-            System.out.println("URL: " + url);
             String json = new RestTemplate().getForEntity(url, String.class).getBody();
             StockData stockData = jsonToStockData.convert(json);
             stockData.setTicker(ticker);
