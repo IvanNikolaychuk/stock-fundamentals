@@ -18,12 +18,6 @@ import static java.util.stream.Collectors.toList;
 
 @Component
 public abstract class Analyzer {
-    private CompanyPropertyRepository companyPropertyRepository; // TODO: remove
-
-    public Analyzer(CompanyPropertyRepository companyPropertyRepository) {
-        this.companyPropertyRepository = companyPropertyRepository;
-    }
-
     public Trend analyze(List<CompanyProperty> companyProperties) {
         return TrendAnalyzer.analyze(companyProperties);
     }

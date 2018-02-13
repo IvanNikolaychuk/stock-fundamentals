@@ -9,10 +9,6 @@ import static com.entity.PropertyType.TANGIBLE_BOOK_VALUE_PER_SHARE;
 
 @Service
 public class TangibleBookValueAnalyzer extends Analyzer {
-    public TangibleBookValueAnalyzer(CompanyPropertyRepository companyPropertyRepository) {
-        super(companyPropertyRepository);
-    }
-
     @Override
     public PropertyType getPropertyType() {
         return TANGIBLE_BOOK_VALUE_PER_SHARE;

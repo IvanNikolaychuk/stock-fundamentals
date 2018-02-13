@@ -23,7 +23,7 @@ public class AnalyzerTest {
 
     @Before
     public void setUp() {
-        someAnalyzer = new SomeAnalyzer(null);
+        someAnalyzer = new SomeAnalyzer();
     }
 
     private CompanyProperty aCompanyProperty(int year, Double value) {
@@ -40,10 +40,6 @@ public class AnalyzerTest {
 
     public class SomeAnalyzer extends Analyzer {
         public List<CompanyProperty> companyProperties;
-
-        public SomeAnalyzer(CompanyPropertyRepository companyPropertyRepository) {
-            super(companyPropertyRepository);
-        }
 
         @Override
         public Trend analyze(List<CompanyProperty> companyProperties) {

@@ -9,10 +9,6 @@ import static com.entity.PropertyType.REVENUE;
 
 @Service
 public class RevenueAnalyzer extends Analyzer {
-    public RevenueAnalyzer(CompanyPropertyRepository companyPropertyRepository) {
-        super(companyPropertyRepository);
-    }
-
     @Override
     public PropertyType getPropertyType() {
         return REVENUE;

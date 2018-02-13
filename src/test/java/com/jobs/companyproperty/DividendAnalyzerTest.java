@@ -10,7 +10,7 @@ import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 
 public class DividendAnalyzerTest {
-    DividendAnalyzer dividendAnalyzer = new DividendAnalyzer(null);
+    DividendAnalyzer dividendAnalyzer = new DividendAnalyzer();
 
     @Test
     public void positiveWhenDividendsAreGrowingSlowly() {
