@@ -4,6 +4,7 @@ import com.api.config.ApplicationProperties;
 import com.api.queries.GenericCommonPropertyQuery;
 import com.entity.Company;
 import com.entity.CompanyProperty;
+import com.jobs.companyproperty.DebtToEquityPropertyCreator;
 import com.repository.CompanyPropertyRepository;
 import com.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,11 @@ public class QueryCommonPropertiesJob {
     private GenericCommonPropertyQuery genericCommonPropertyQuery;
     @Autowired
     private ApplicationProperties properties;
+    @Autowired
+    private DebtToEquityPropertyCreator debtToEquityPropertyCreator;
 
     private static String TEMPLATE_URL = "https://www.quandl.com/api/v3/datatables/SHARADAR/SF1.json?" +
-            "ticker={0}&qopts.columns=ticker,datekey,revenue,netinc,shareswa,workingcapital,dps,fcf,de,TBVPS,EPSDIL,EQUITYUSD,DEBTNC" +
+            "ticker={0}&qopts.columns=ticker,datekey,revenue,netinc,shareswa,workingcapital,dps,fcf,TBVPS,EPSDIL,EQUITYUSD,DEBTNC" +
             "&dimension=ARY&api_key={1}";
 
     @PostConstruct
@@ -38,6 +41,7 @@ public class QueryCommonPropertiesJob {
         for (String tickers : tickerList) {
             final String url = MessageFormat.format(TEMPLATE_URL, tickers, properties.getApiKey());
             List<CompanyProperty> companyProperties = genericCommonPropertyQuery.query(url);
+            companyProperties.addAll(debtToEquityPropertyCreator.compute(tickers, companyProperties));
             companyPropertyRepository.save(companyProperties);
         }
 

@@ -9,6 +9,7 @@ public enum PropertyType {
 
     // balance sheet
     TOTAL_DEBT_TO_EQUITY("DE"), TANGIBLE_BOOK_VALUE_PER_SHARE("tbvps"), WORKING_CAPITAL("workingcapital"),
+    EQUITY("EQUITYUSD"), LT_DEBT("DEBTNC"), LT_DEBT_TO_EQUITY("ltde"),
 
     // cash flow
     FREE_CASH_FLOW("fcf"), FREE_CASH_FLOW_PER_SHARE("fcfps");
