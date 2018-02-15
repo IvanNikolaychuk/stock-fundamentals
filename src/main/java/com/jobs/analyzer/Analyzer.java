@@ -36,6 +36,6 @@ public abstract class Analyzer {
     public abstract PropertyType getPropertyType();
 
     public int maxYearsOfAnalysis() {
-        return 9;
+        return 8;
     }
 }

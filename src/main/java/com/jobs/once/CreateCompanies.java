@@ -28,5 +28,6 @@ public class CreateCompanies {
     public void create() {
         if (!applicationProperties.isCreateCompaniesJob()) return;
         companyRepository.save(listedCompanies.query());
+        System.out.println(CreateCompanies.this.getClass().getName() + " finished");
     }
 }
