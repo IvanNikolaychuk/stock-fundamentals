@@ -53,7 +53,7 @@ public class QueryPriceJob {
         if (!properties.isQueryStockPriceJob()) return;
 
         stockDataRepository.deleteAll();
-        companyPropertyRepository.delete(companyPropertyRepository.findByPropertyType(AVG_5_YEAR_PE));
+//        companyPropertyRepository.delete(companyPropertyRepository.findByPropertyType(AVG_5_YEAR_PE));
         companyPropertyRepository.delete(companyPropertyRepository.findByPropertyType(LAST_PE));
 
         List<Company> companies = new ArrayList<>();
@@ -83,7 +83,7 @@ public class QueryPriceJob {
 
             stockDatas.forEach(stockData -> {
                 try {
-                    peCompanyPropertyCreator.create(stockData, new Avg5YearEpsStrategy()).ifPresent(companyPropertyRepository::save);
+//                    peCompanyPropertyCreator.create(stockData, new Avg5YearEpsStrategy()).ifPresent(companyPropertyRepository::save);
                     peCompanyPropertyCreator.create(stockData, new LastEpsStrategy()).ifPresent(companyPropertyRepository::save);
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
