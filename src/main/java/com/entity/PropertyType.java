@@ -4,7 +4,7 @@ public enum PropertyType {
     DATA("datekey"), TICKER("ticker"),
 
     // income statement
-    NUMBER_OF_SHARES("shareswa"), DIVIDENDS_PER_SHARE("dps"), EPS("epsusd"),
+    NUMBER_OF_SHARES("shareswa"), DIVIDENDS_PER_SHARE("dps"), DIVIDEND_YIELD("divyeild"), EPS("epsusd"),
     REVENUE("revenue"), NET_INCOME("netinc"), LAST_PE("lastpe"), AVG_5_YEAR_PE("avgpe"),
 
     // balance sheet

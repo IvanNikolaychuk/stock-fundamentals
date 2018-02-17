@@ -6,6 +6,7 @@ import com.entity.Company;
 import com.entity.CompanyProperty;
 import com.entity.PropertyType;
 import com.entity.StockData;
+import com.jobs.companyproperty.DividendYieldCreator;
 import com.jobs.companyproperty.PECompanyPropertyCreator;
 import com.jobs.companyproperty.strategy.Avg5YearEpsStrategy;
 import com.jobs.companyproperty.strategy.LastEpsStrategy;
@@ -22,13 +23,12 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
-import static com.entity.PropertyType.AVG_5_YEAR_PE;
-import static com.entity.PropertyType.LAST_PE;
+import static com.entity.PropertyType.*;
 import static org.apache.commons.collections4.ListUtils.partition;
 
 @Component
 public class QueryPriceJob {
-    private static final int ELEMENTS_IN_EACH_SUB_LIST = 500;
+    private static final int ELEMENTS_IN_EACH_SUB_LIST = 250;
 
     @Autowired
     private CompanyRepository companyRepository;
@@ -43,6 +43,9 @@ public class QueryPriceJob {
     private PECompanyPropertyCreator peCompanyPropertyCreator;
 
     @Autowired
+    private DividendYieldCreator dividendYieldCreator;
+
+    @Autowired
     private YahooApi yahooApi;
 
     @Autowired
@@ -55,6 +58,7 @@ public class QueryPriceJob {
         stockDataRepository.deleteAll();
 //        companyPropertyRepository.delete(companyPropertyRepository.findByPropertyType(AVG_5_YEAR_PE));
         companyPropertyRepository.delete(companyPropertyRepository.findByPropertyType(LAST_PE));
+        companyPropertyRepository.delete(companyPropertyRepository.findByPropertyType(DIVIDEND_YIELD));
 
         List<Company> companies = new ArrayList<>();
         companyRepository.findAll().forEach(companies::add);
@@ -85,6 +89,7 @@ public class QueryPriceJob {
                 try {
 //                    peCompanyPropertyCreator.create(stockData, new Avg5YearEpsStrategy()).ifPresent(companyPropertyRepository::save);
                     peCompanyPropertyCreator.create(stockData, new LastEpsStrategy()).ifPresent(companyPropertyRepository::save);
+                    dividendYieldCreator.create(stockData).ifPresent(companyPropertyRepository::save);
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();
                 }
