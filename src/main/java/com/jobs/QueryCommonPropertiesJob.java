@@ -13,7 +13,11 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.Arrays.asList;
 
 @Service
 public class QueryCommonPropertiesJob {
@@ -35,13 +39,12 @@ public class QueryCommonPropertiesJob {
     @PostConstruct
     public void query() {
         if (!properties.isQueryCommonPropertiesJob()) return;
-        companyRepository.deleteAll();
+        System.out.println(this.getClass().getName() + " started");
 
-        List<String> tickerList = splitByTickers(companyRepository.findAll());
-        for (String tickers : tickerList) {
+        for (String tickers : splitByTickers(companyRepository.findAll())) {
             final String url = MessageFormat.format(TEMPLATE_URL, tickers, properties.getApiKey());
             List<CompanyProperty> companyProperties = genericCommonPropertyQuery.query(url);
-            companyProperties.addAll(debtToEquityPropertyCreator.compute(tickers, companyProperties));
+            companyProperties.addAll(debtToEquityPropertyCreator.compute(asList(tickers.split(",")), companyProperties));
             companyPropertyRepository.save(companyProperties);
         }
 

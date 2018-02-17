@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.entity.PropertyType.EQUITY;
 import static com.entity.PropertyType.LT_DEBT;
@@ -15,6 +16,19 @@ import static java.util.stream.Collectors.toSet;
 
 @Component
 public class DebtToEquityPropertyCreator {
+    public List<CompanyProperty> compute(List<String> tickers, List<CompanyProperty> companyProperties) {
+        List<CompanyProperty> properties = new ArrayList<>();
+        for(String ticker : tickers) {
+            List<CompanyProperty> propertiesForThisTicker = companyProperties.stream()
+                    .filter(prop -> prop.getTicker().equals(ticker))
+                    .collect(Collectors.toList());
+
+            properties.addAll(compute(ticker, propertiesForThisTicker));
+        }
+
+        return properties;
+    }
+
     public List<CompanyProperty> compute(String ticker, List<CompanyProperty> companyProperties) {
         List<CompanyProperty> debtToEq = new ArrayList<>();
 
