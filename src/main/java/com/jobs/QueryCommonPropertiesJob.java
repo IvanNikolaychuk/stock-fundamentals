@@ -33,7 +33,7 @@ public class QueryCommonPropertiesJob {
     private DebtToEquityPropertyCreator debtToEquityPropertyCreator;
 
     private static String TEMPLATE_URL = "https://www.quandl.com/api/v3/datatables/SHARADAR/SF1.json?" +
-            "ticker={0}&qopts.columns=ticker,datekey,revenue,netinc,shareswa,workingcapital,dps,fcf,TBVPS,EPSDIL,EQUITYUSD,DEBTNC" +
+            "ticker={0}&qopts.columns=ticker,datekey,revenue,netinc,shareswa,workingcapital,dps,fcf,TBVPS,EPSUSD,EQUITYUSD,DEBTNC" +
             "&dimension=ARY&api_key={1}";
 
     @PostConstruct
