@@ -1,5 +1,6 @@
 package com.jobs;
 
+import com.api.config.ApplicationProperties;
 import com.entity.*;
 import com.repository.AnalyzeSummaryRepository;
 import com.repository.CompanyPropertyRepository;
@@ -17,7 +18,7 @@ import static com.entity.PropertyType.LAST_PE;
 import static com.entity.PropertyType.LT_DEBT_TO_EQUITY;
 
 @Component
-public class PotentiallyInterestingCompaniesJob {
+public class PotentiallyUndervaluedCompaniesJob {
     private static final Double MAX_ACCEPTED_PE = 12d;
     private static final Double MAX_ACCEPTED_DE = 0.5d;
 
@@ -27,8 +28,13 @@ public class PotentiallyInterestingCompaniesJob {
     @Autowired
     private CompanyPropertyRepository companyPropertyRepository;
 
+    @Autowired
+    private ApplicationProperties applicationProperties;
+
     @PostConstruct
     public void create() {
+        if(!applicationProperties.isPotentiallyUndervaluedCompaniesJob()) return;
+
         potentiallyUndervaluedCompanyRepository.deleteAll();
         List<String> goodLastPe = companyPropertyRepository.findWithGoodLastPe(MAX_ACCEPTED_PE);
         List<String> goodAvgPe = companyPropertyRepository.findWithGoodAvgPe(MAX_ACCEPTED_PE);

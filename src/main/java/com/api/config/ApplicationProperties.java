@@ -23,4 +23,7 @@ public class ApplicationProperties {
 
     @Value("${analyze_summary_job}")
     private boolean analyzeSummaryJob;
+
+    @Value("${potentially_undervalued_companies_job}")
+    private boolean potentiallyUndervaluedCompaniesJob;
 }
