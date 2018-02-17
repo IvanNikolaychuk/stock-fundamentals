@@ -10,5 +10,5 @@ import java.util.List;
 
 @Service
 public interface AnalyzeSummaryRepository extends CrudRepository<AnalyzeSummary, Integer> {
-    List<AnalyzeSummary> findByTickerAndPropertyType(String ticker, PropertyType propertyType);
+    List<AnalyzeSummary> findByTickerAndProperty(String ticker, PropertyType property);
 }
